@@ -7,7 +7,7 @@ export const EmailSignUp = async (Email , Password) => {
     .createUserWithEmailAndPassword(Email, Password )
     .then(() => {
         // var TrueMail = this.state.Email.split(".").join("")                       
-        alert("Firebase :: Email Sign Up Successfull");
+        console.log("Firebase :: Email Sign Up Successfull");
      })
     .catch(error => {
       alert(error)
@@ -20,10 +20,15 @@ export const EmailLogin = async (Email , Password) => {
       firebase.auth()
           .signInWithEmailAndPassword( Email , Password)
              .then(() => { 
-               try{
-                 alert("Login Successful")  
+               try {
+                 console.log("Login Successful")  
                  let x = firebase.auth().currentUser.uid
-                 Actions.Messenger({Id:x})                   
+
+                 let user1 = ({Id:x , Name:'Humza' , Photo: img1 })
+                 let user2 = ({Id:'abc' , Name:'Irza' , Photo:img2 })
+
+                //  Actions.Messenger({User1:user1 , User2:user2})            
+
                }  
                catch (e) {
                 alert(e)
@@ -36,10 +41,7 @@ export const EmailLogin = async (Email , Password) => {
 
 
 
-
-
-
-export const GoogleLogin = async () => {  
+export const expoLogin = async (Auth) => {  
     try {
      const result = await Google.logInAsync({
          // Get From Expo Google Login Guide 
@@ -49,9 +51,11 @@ export const GoogleLogin = async () => {
      });
  
      if (result.type === 'success') {
-       alert("success");
+       //alert("success");
       
-       const credential = firebase.auth.GoogleAuthProvider.credential(result.idToken, result.accessToken);
+      //  const Auth = firebase.auth.FacebookAuthProvider
+
+       const credential = Auth.credential(result.idToken, result.accessToken);
        firebase.auth().signInWithCredential(credential)
          .then(res => {
            console.log(`Firebase :: Google Login : Success , Data :: ${res}`);
@@ -69,3 +73,7 @@ export const GoogleLogin = async () => {
      return { error: true };
    }
  }
+
+ var img1 = 'https://cdn.iconscout.com/icon/free/png-256/face-1659511-1410033.png'
+ var img2 = 'https://static.thenounproject.com/png/1495532-200.png'
+ 
