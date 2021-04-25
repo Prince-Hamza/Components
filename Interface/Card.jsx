@@ -1,34 +1,15 @@
-import React, { Component } from 'react';
-import {Styles , Colors , TextColors } from './Verstyle'
-
+import React, { Component } from "react";
+import { View, Text } from "react-native";
+import { Styles, Colors, TextColors } from "./Verstyle";
 
 class Card extends React.Component {
-
-
-  Navigate = (PATH) => {
-    this.props.history.push('/Mystery');
+  render() {
+    return (
+      <View style={{ ...Styles.Card, ...this.props.style , fontSize: 12 }}>
+        {this.props.children}
+      </View>
+    );
   }
-      
-  render () {
-    
-  return (
-    <div> 
-        <div style = {{...Styles.Menu , ...Styles.Card , fontSize:12 }} >
+}
 
-        <h1>Card</h1>
-
-        </div>
-
-    </div>
-  );
-
-} }
-
-export default Card
-
-
-const Verstyle = ({
-      Menu : {
-           ...Styles.Menu  , ...Styles.Card  , backgroundColor:'black'
-     }
-})
+export default Card;

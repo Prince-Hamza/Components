@@ -3,17 +3,16 @@ import {StyleSheet } from 'react-native'
 
 export const Styles = StyleSheet.create ({
     Container : {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      width:'100%'
     },
     ContainBelow:{
       flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'flex-end',
-
     },
     Menu:{
       position:"absolute",
@@ -43,62 +42,25 @@ export const Styles = StyleSheet.create ({
       alignItems:'center',
       borderRadius:63
     },
-    MessengerInput : {
-       height: 40,width:360, borderColor: 'lightgray', borderWidth: 0.5 
-    }
+    Card:{
+      backgroundColor:'white',
+      shadowColor:'lightgray',
+      elevation:7
+    },
+    
 
   })
+
+
+  
   
 export const Colors = ({
 
-  White:{
-    backgroundColor : 'white'
-  },
-  Black:{
-    backgroundColor : 'black'
-  },
    NiceDark:{
     backgroundColor : '#222'
   },
-  Magenta:{
-    backgroundColor : 'magenta'
-  }, 
-  Cyan:{
-    backgroundColor : 'cyan'
-  },
-  Blue:{
-    backgroundColor : 'blue'
-  },
-
 
 })
-
-export const TextColors = ({
-
-  White:{
-    color : 'white'
-  },
-  Black:{
-    color : 'black'
-  },
-   NiceDark:{
-    color : '#222'
-  },
-  Magenta:{
-    color : 'magenta'
-  }, 
-  Cyan:{
-    color : 'cyan'
-  },
-  Blue:{
-    color : 'blue'
-  },
-
-})
-
-
-
-
 
 
 

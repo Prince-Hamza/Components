@@ -1,40 +1,83 @@
 import * as Google from 'expo-google-app-auth';
 import * as firebase from 'firebase'
-import {Actions} from 'react-native-router-flux'
+// import { Actions } from 'react-native-router-flux';
+
+
+export class webAuth {
+
+   EmailSignUp = (email,pass) => {EmailSignUp(email,pass)}
+
+   EmailLogin = (email,pass) => {EmailLogin(email,pass)}
+
+   AnonymousLogin = () => {AnonymousLogin()}
+
+   // need Social Login See Firebase Docs
+
+}
+
+
+export class expoAuth {
+
+   expoLogin = (Auth) => {return expoLogin(Auth) }
+
+   AnonymousLogin = () => { return AnonymousLogin() }
+
+}
+
+export class nativeAuth {
+
+  AnonymousLogin = () => {AnonymousLogin()}
+
+  // need Social Login : see 2oui
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export const EmailSignUp = async (Email , Password) => {
-    firebase.auth()
-    .createUserWithEmailAndPassword(Email, Password )
-    .then(() => {
-        // var TrueMail = this.state.Email.split(".").join("")                       
-        console.log("Firebase :: Email Sign Up Successfull");
-     })
-    .catch(error => {
-      alert(error)
-    })  
+
+  const response = await firebase.auth().createUserWithEmailAndPassword(Email, Password);
+  const Id = response.user.uid
+  console.log ('RESPONSE :: ' + Id);
+  return Id
+  
 }
 
 
 
 export const EmailLogin = async (Email , Password) => {   
-      firebase.auth()
-          .signInWithEmailAndPassword( Email , Password)
-             .then(() => { 
-               try {
-                 console.log("Login Successful")  
-                 let x = firebase.auth().currentUser.uid
 
-                 let user1 = ({Id:x , Name:'Humza' , Photo: img1 })
-                 let user2 = ({Id:'abc' , Name:'Irza' , Photo:img2 })
+ // alert(Email)
 
-                //  Actions.Messenger({User1:user1 , User2:user2})            
+  try {
 
-               }  
-               catch (e) {
-                alert(e)
-               }                      
-           })  
-    .catch(error => alert(error)) 
+  
+  const response = await firebase.auth().signInWithEmailAndPassword(Email, Password);
+  const Id = response.user.uid
+  console.log('Resp : ' + Id);
+  return Id
+  } catch (ex) {alert(ex)}
+}
+
+
+ const AnonymousLogin = async () => {
+
+  const response = await firebase.auth().signInAnonymously();
+  const Id = response.user.uid
+  console.log('Resp : ' + Id);
+  return Id
+
 }
 
 
@@ -51,21 +94,20 @@ export const expoLogin = async (Auth) => {
      });
  
      if (result.type === 'success') {
-       //alert("success");
       
       //  const Auth = firebase.auth.FacebookAuthProvider
-
        const credential = Auth.credential(result.idToken, result.accessToken);
-       firebase.auth().signInWithCredential(credential)
+
+
+       return firebase.auth().signInWithCredential(credential)
          .then(res => {
-           console.log(`Firebase :: Google Login : Success , Data :: ${res}`);
+           console.log(`Firebase :: social Login : Success , Data :: ${res}`);
            return res
-         })
-         .catch(error => {
-           alert("firebase cred err: " + error);
-         });
+         })         
+        
  
-     }  else {
+     }
+       else {
        return { cancelled: true };
      }
    } catch (e) {
@@ -74,6 +116,10 @@ export const expoLogin = async (Auth) => {
    }
  }
 
- var img1 = 'https://cdn.iconscout.com/icon/free/png-256/face-1659511-1410033.png'
- var img2 = 'https://static.thenounproject.com/png/1495532-200.png'
+
+//  export const AnonymousLogin = () => {
+
+//  }
+
  
+

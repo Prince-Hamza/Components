@@ -3,7 +3,7 @@ import {View , Text, StyleSheet , TextInput , ScrollView , Image } from 'react-n
 import Space from '../Components/Interface/Interface'
 import {Styles , Colors} from '../Components/Interface/Verstyle'
 import { Actions } from 'react-native-router-flux';
-import {ChatRoomKey} from '../Components/Features/Messenger'
+import {ChatRoomKey , updateHistory , SendMessage} from '../Components/Features/Messenger'
 import firebase from 'firebase'
 import Constants from 'expo-constants';
 import RNSimData from 'react-native-sim-data'
@@ -30,7 +30,7 @@ class Messenger extends React.Component {
 
      // inform user on new convo (optional)
      let App = this.props
-     this.updateHistory(App.User2.Name  , App.User2.Photo , Key)
+     updateHistory(App.User2.Name  , App.User2.Photo , Key)
 
 
      // Notify unread Messages
@@ -39,33 +39,33 @@ class Messenger extends React.Component {
 
  }
  
- updateHistory = (Name , Photo , ConvoId) => {
+//  updateHistory = (Name , Photo , ConvoId) => {
 
-      let  Me = firebase.auth().currentUser.uid , Exists = false
-      let  Chat_History = firebase.database().ref(`/ChatPlugin/History/${Me}`)
+//       let  Me = firebase.auth().currentUser.uid , Exists = false
+//       let  Chat_History = firebase.database().ref(`/ChatPlugin/History/${Me}`)
 
-      Chat_History.once('value' , (resp) => {
-           resp.forEach((res) => {
-              let data = res.val()
-              if (data.Conversation == ConvoId)  Exists = true 
-      })
+//       Chat_History.once('value' , (resp) => {
+//            resp.forEach((res) => {
+//               let data = res.val()
+//               if (data.Conversation == ConvoId)  Exists = true 
+//       })
 
-       if (!Exists) Chat_History.push({ Name : Name, Photo:Photo, Conversation:ConvoId })
+//        if (!Exists) Chat_History.push({ Name : Name, Photo:Photo, Conversation:ConvoId })
         
-      })
+//       })
      
- }
+//  }
 
- onSubmit = (Message) => {
-    let Me = firebase.auth().currentUser.uid
-    firebase.database().ref(`/ChatPlugin/Conversations/${Key}`)
-    .push({   Id : Me,   Message: Message  })
-    this.setState({Text:''})
- }
+//  onSubmit = (Message) => {
+//     let Me = firebase.auth().currentUser.uid
+//     firebase.database().ref(`/ChatPlugin/Conversations/${Key}`)
+//     .push({   Id : Me,   Message: Message  })
+//     this.setState({Text:''})
+//  }
 
- onChangeText = (value) => {
-     this.setState({Text : value })
- }
+//  onChangeText = (value) => {
+//      this.setState({Text : value })
+//  }
 
  
 
@@ -116,8 +116,8 @@ if (this.state.Complete) {
        <TextInput
             style={Styles.MessengerInput}
             value = {this.state.Text}
-            onChangeText={text => this.onChangeText(text)}
-            onSubmitEditing = {(e)=>{this.onSubmit(e.nativeEvent.text)}}
+            onChangeText={text => this.setState({Text:text})   }
+            onSubmitEditing = {(e)=>{SendMessage(e.nativeEvent.text)}}
             placeholder = {'    Type a Message Here'}
        />
 
